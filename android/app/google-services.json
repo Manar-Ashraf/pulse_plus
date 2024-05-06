@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "221424984740",
+    "project_id": "graduation-demo",
+    "storage_bucket": "graduation-demo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:221424984740:android:e552efb5e69efb6e86fc31",
+        "android_client_info": {
+          "package_name": "com.example.pulse_plus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUeHhbRE_2kVOgfTIx5fwTe7zeui8BqSU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
