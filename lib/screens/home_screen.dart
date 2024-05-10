@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pulse_plus/controllers/token_controller.dart';
 import 'package:semicircle_indicator/semicircle_indicator.dart';
+import 'package:pulse_plus/screens/doctor_info.dart';
+import 'package:pulse_plus/screens/user_profile.dart';
+import 'package:semicircle_indicator/semicircle_indicator.dart';
+import 'package:pulse_plus/screens/sign_in_screen.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class BarChart {
@@ -103,20 +107,44 @@ TokenController tokenController = Get.put(TokenController());
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 100,vertical: 10),
-              child: Image.asset("assets/splash.png"),
-            ),
-            Padding(
-                padding: const EdgeInsets.only(left: 20,right:20),),
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: Row(children: [
+                  PopupMenuButton<String>(
+                    color: Colors.red[200],
+                    onSelected: (String value) {
+                      switch (value) {
+                        case 'Screen 1':
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (c) => const Profile()));
+                          break;
+                        case 'Screen 2':
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (c) => const Doctor()));
+                          break;
+                        case 'Screen 3':
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (c) => SignInScreen()));
+                          break;
+                      }
+                    },
+                    itemBuilder: (BuildContext context) => [
+                      const PopupMenuItem<String>(
+                        value: 'Screen 1',
+                        child: Text('Profile'),
+                      ),
+                      const PopupMenuItem<String>(
+                        value: 'Screen 2',
+                        child: Text('Report to Doctor'),
+                      ),
+                      const PopupMenuItem<String>(
+                        value: 'Screen 3',
+                        child: Text('Sign Out'),
+                      ),
+                    ],
+                  ),
+                ])),
             const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Container(
-                height: 300,
-                child:_buildBarChart() ,
-              ),
-            ),
-
+            _buildBarChart(),
             const SizedBox(height: 70),
             const SemicircularIndicator(
               radius: 80,

@@ -122,8 +122,20 @@ class SignInScreen extends StatelessWidget {
                       )
                     ],
                   ),
-                ),
-              ],
+                  const SizedBox(height: 20),
+                  TextButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        Get.off(() =>  const HomeScreen());
+                      }
+                    },
+                    child: const Text("Continue"),
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  )
+                ],
+              ),
             ),
           ),
         ),

@@ -14,7 +14,7 @@ class Doctor extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 40.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Text("Doctor Information",
@@ -31,7 +31,7 @@ class Doctor extends StatelessWidget {
               child: const Text('Doctor Name',
                   style: TextStyle(color: Color(0xFF7E1D19), fontSize: 16)),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height:30),
             Container(
               alignment: Alignment.center,
               decoration: BoxDecoration(
@@ -43,38 +43,14 @@ class Doctor extends StatelessWidget {
               child: const Text('Phone number',
                   style: TextStyle(color: Color(0xFF7E1D19), fontSize: 16)),
             ),
-            const SizedBox(height: 30),
-            Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              width: 300,
-              height: 50,
-              child: const Text('Email',
-                  style: TextStyle(color: Color(0xFF7E1D19), fontSize: 16)),
-            ),
-            const SizedBox(height: 30),
-            Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              width: 300,
-              height: 50,
-              child: const Text('Address',
-                  style: TextStyle(color: Color(0xFF7E1D19), fontSize: 16)),
-            ),
-            const SizedBox(height: 50),
+            const SizedBox(height: 80),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
                     onPressed: () {},
                     child: const Text(
-                      "Send via Phone",
+                      "Call via Phone",
                       style: TextStyle(color: Color(0xFF7E1D19), fontSize: 16),
                     )),
                 const SizedBox(
@@ -82,7 +58,7 @@ class Doctor extends StatelessWidget {
                 ),
                 ElevatedButton(
                     onPressed: () {},
-                    child: const Text("Send via Email",
+                    child: const Text("Send via Phone",
                         style:
                             TextStyle(color: Color(0xFF7E1D19), fontSize: 16)))
               ],
