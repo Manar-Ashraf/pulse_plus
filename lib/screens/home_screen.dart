@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pulse_plus/controllers/token_controller.dart';
 import 'package:semicircle_indicator/semicircle_indicator.dart';
-import 'package:pulse_plus/screens/doctor_info.dart';
-import 'package:pulse_plus/screens/user_profile.dart';
-import 'package:semicircle_indicator/semicircle_indicator.dart';
-import 'package:pulse_plus/screens/sign_in_screen.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class BarChart {
@@ -20,9 +16,16 @@ class BarChart {
   });
 }
 
-class HomeScreen extends StatelessWidget {
-   HomeScreen({super.key});
-TokenController tokenController = Get.put(TokenController());
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  TokenController tokenController = Get.put(TokenController());
+
   Widget _buildBarChart() {
     List<charts.Series<BarChart, String>> series = [
       charts.Series(
@@ -92,57 +95,16 @@ TokenController tokenController = Get.put(TokenController());
       ),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          tokenController.getTok();
-        },
-      ),
       backgroundColor: const Color(0xFFFFE5E7),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
-                child: Row(children: [
-                  PopupMenuButton<String>(
-                    color: Colors.red[200],
-                    onSelected: (String value) {
-                      switch (value) {
-                        case 'Screen 1':
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (c) => const Profile()));
-                          break;
-                        case 'Screen 2':
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (c) => const Doctor()));
-                          break;
-                        case 'Screen 3':
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (c) => SignInScreen()));
-                          break;
-                      }
-                    },
-                    itemBuilder: (BuildContext context) => [
-                      const PopupMenuItem<String>(
-                        value: 'Screen 1',
-                        child: Text('Profile'),
-                      ),
-                      const PopupMenuItem<String>(
-                        value: 'Screen 2',
-                        child: Text('Report to Doctor'),
-                      ),
-                      const PopupMenuItem<String>(
-                        value: 'Screen 3',
-                        child: Text('Sign Out'),
-                      ),
-                    ],
-                  ),
-                ])),
             const SizedBox(height: 20),
             _buildBarChart(),
             const SizedBox(height: 70),

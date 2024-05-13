@@ -6,6 +6,7 @@ import 'package:pulse_plus/screens/signup_screen.dart';
 import 'package:pulse_plus/screens/tab_bar.dart';
 import '../widgets/custom_text_field.dart';
 
+
 class SignInScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
@@ -18,7 +19,7 @@ class SignInScreen extends StatelessWidget {
     if (FirebaseAuth.instance.currentUser != null) {
       // Navigate to the TabBar screen if the user is already signed in
       WidgetsBinding.instance!.addPostFrameCallback((_) {
-        Get.off(() => TabBarr());
+        Get.off(() => const TabBarr());
       });
     }
 
@@ -28,7 +29,7 @@ class SignInScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Padding(
-            padding: const EdgeInsets.only(top:160),
+            padding: const EdgeInsets.only(top: 160),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -43,8 +44,8 @@ class SignInScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       const Text("Sign In",
-                          style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.w900)),
+                          style: TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.w900)),
                       const SizedBox(height: 20),
                       CustomTextField(
                         controller: _emailController,
@@ -93,26 +94,32 @@ class SignInScreen extends StatelessWidget {
                           if (_formKey.currentState!.validate()) {
                             final email = _emailController.text;
                             final password = _passwordController.text;
-                            final success = await _signInController.signInWithEmailPassword(email, password);
+                            final success = await _signInController
+                                .signInWithEmailPassword(email, password);
                             if (success) {
                               if (_signInController.currentUser != null) {
-                                Get.off(() =>  TabBarr());
+                                Get.off(() => const TabBarr());
                               } else {
                                 // Show a snackbar if user is null
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text('Email doesn\'t exist. You have to sign up first.'),
+                                  const SnackBar(
+                                    content: Text(
+                                        'Email doesn\'t exist. You have to sign up first.'),
                                   ),
                                 );
                               }
                             } else {
                               // Show a snackbar if sign in fails
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text('Sign in failed. Please try again.'),
+                                const SnackBar(
+                                  content:
+                                      Text('Sign in failed. Please try again.'),
                                 ),
                               );
                             }
+                          }
+                          if (_formKey.currentState!.validate()) {
+                            Get.off(() => const TabBarr());
                           }
                         },
                         child: const Text("Continue"),
@@ -122,20 +129,8 @@ class SignInScreen extends StatelessWidget {
                       )
                     ],
                   ),
-                  const SizedBox(height: 20),
-                  TextButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        Get.off(() =>  const HomeScreen());
-                      }
-                    },
-                    child: const Text("Continue"),
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  )
-                ],
-              ),
+                )
+              ],
             ),
           ),
         ),

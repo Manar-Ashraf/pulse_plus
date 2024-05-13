@@ -41,6 +41,7 @@ dependencies:
   firebase_auth: ^4.17.8
   http: ^1.2.0
   flutter_launcher_icons: ^0.13.1
+  cloud_firestore: ^4.17.3
 
 uses-material-design: true
 

@@ -5,7 +5,7 @@ import 'package:pulse_plus/controllers/signup_controller.dart';
 import 'package:pulse_plus/screens/sign_in_screen.dart';
 import 'package:pulse_plus/screens/tab_bar.dart';
 import '../widgets/custom_text_field.dart';
-import 'home_screen.dart';
+
 
 class SignupScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -13,6 +13,9 @@ class SignupScreen extends StatelessWidget {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
+  final TextEditingController _genderController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _medicationController = TextEditingController();
   final TextEditingController _doctorNameController = TextEditingController();
   final TextEditingController _doctorNumberController = TextEditingController();
   final SignupController _signupController = SignupController();
@@ -88,6 +91,39 @@ class SignupScreen extends StatelessWidget {
                         },
                       ),
                       const SizedBox(height: 10),
+                      // CustomTextField(
+                      //   controller: _genderController,
+                      //   hintText: "Gender",
+                      //   validator: (value) {
+                      //     if (value == null || value.isEmpty) {
+                      //       return 'Please enter your Gender';
+                      //     }
+                      //     return null;
+                      //   },
+                      // ),
+                      // const SizedBox(height: 10),
+                      // CustomTextField(
+                      //   controller: _phoneController,
+                      //   hintText: "Phone number",
+                      //   validator: (value) {
+                      //     if (value == null || value.isEmpty) {
+                      //       return 'Please enter your phone number';
+                      //     }
+                      //     return null;
+                      //   },
+                      // ),
+                      // const SizedBox(height: 10),
+                      // CustomTextField(
+                      //   controller: _medicationController,
+                      //   hintText: "Any medications that affect your heart rate",
+                      //   validator: (value) {
+                      //     if (value == null || value.isEmpty) {
+                      //       return 'Please enter if you take any medications';
+                      //     }
+                      //     return null;
+                      //   },
+                      // ),
+                      // const SizedBox(height: 10),
                       CustomTextField(
                         controller: _doctorNameController,
                         hintText: "Doctor Name",
@@ -157,6 +193,9 @@ class SignupScreen extends StatelessWidget {
       'password': _passwordController.text,
       'name': _nameController.text,
       'age': _ageController.text,
+      'gender': _genderController.text,
+      'phone': _phoneController.text,
+      'medication': _medicationController.text,
       'doctorName': _doctorNameController.text,
       'doctorPhone': _doctorNumberController.text,
     };

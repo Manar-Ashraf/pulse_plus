@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pulse_plus/screens/doctor_info.dart';
 import 'package:pulse_plus/screens/user_profile.dart';
-import 'package:semicircle_indicator/semicircle_indicator.dart';
 import 'package:pulse_plus/screens/sign_in_screen.dart';
-
 import 'home_screen.dart';
 
 class TabBarr extends StatefulWidget {
@@ -15,8 +13,7 @@ class TabBarr extends StatefulWidget {
   _TabBarrState createState() => _TabBarrState();
 }
 
-class _TabBarrState extends State<TabBarr>
-    with SingleTickerProviderStateMixin {
+class _TabBarrState extends State<TabBarr> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   bool _isLoggedIn = false;
 
@@ -42,7 +39,7 @@ class _TabBarrState extends State<TabBarr>
     setState(() {
       _isLoggedIn = false;
     });
-    Get.off(()=>SignInScreen());
+    Get.off(() => SignInScreen());
   }
 
   @override
@@ -52,67 +49,70 @@ class _TabBarrState extends State<TabBarr>
       body: SafeArea(
         child: _isLoggedIn
             ? Column(
-          children: [
-            Expanded(
-              child: TabBarView(
-                controller: _tabController,
                 children: [
-                  HomeScreen(),
-                  Profile(),
-                  Doctor(),
-                  SignInScreen(),
+                  Expanded(
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: [
+                        const HomeScreen(),
+                        Profile(),
+                        Doctor(),
+                        SignInScreen(),
+                      ],
+                    ),
+                  ),
                 ],
-              ),
-            ),
-          ],
-        )
+              )
             : SignInScreen(), // Show SignInScreen if not logged in
       ),
       bottomNavigationBar: _isLoggedIn
           ? WillPopScope(
-        // Intercept back button press
-        onWillPop: () async {
-          // Navigate to sign-in screen if back button is pressed
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (context) => SignInScreen(),
-            ),
-          );
-          return true;
-        },
-        child: BottomAppBar(
-          child: TabBar(
-            controller: _tabController,
-            labelColor: Colors.red[200],
-            unselectedLabelColor: Colors.grey,
-            indicatorColor: Colors.red[200],
-            tabs: [
-              Tab(
-                icon: Image.asset("assets/home.png",height: 22),
-                text: 'Home',
+              // Intercept back button press
+              onWillPop: () async {
+                // Navigate to sign-in screen if back button is pressed
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => SignInScreen(),
+                  ),
+                );
+                return true;
+              },
+              child: BottomAppBar(
+                color: Colors.red[200],
+                height: 80,
+                child: TabBar(
+                  dividerColor: Colors.red[200],
+                  controller: _tabController,
+                  labelColor: Colors.black,
+                  unselectedLabelColor: Colors.black,
+                  indicatorColor: Colors.black,
+                  tabs: [
+                    Tab(
+                      icon: Image.asset("assets/home.png", height: 22),
+                      text: 'Home',
+                    ),
+                    Tab(
+                      icon: Image.asset("assets/profile.png", height: 24),
+                      text: 'Profile',
+                    ),
+                    Tab(
+                      icon: Image.asset("assets/doctor.png", height: 22),
+                      text: 'Report ',
+                    ),
+                    Tab(
+                      icon: Image.asset("assets/signout.png", height: 22),
+                      text: 'SignOut',
+                    ),
+                  ],
+                  onTap: (index) {
+                    if (index == 3) {
+                      // Sign out the user when "Sign Out" tab is tapped
+                      _signOutUser();
+                    }
+                  },
+                ),
               ),
-              Tab(
-                icon: Image.asset("assets/profile.png",height: 24),
-                text: 'Profile',
-              ),
-              Tab(
-                icon: Image.asset("assets/doctor.png",height: 22),
-                text: 'Report Doctor',
-              ),
-              Tab(
-                icon: Image.asset("assets/signout.png",height: 22),
-                text: 'Sign Out',
-              ),
-            ],
-            onTap: (index) {
-              if (index == 3) {
-                // Sign out the user when "Sign Out" tab is tapped
-                _signOutUser();
-              }
-            },
-          ),
-        ),
-      )
+            )
           : null, // Hide bottom navigation if not logged in
     );
   }

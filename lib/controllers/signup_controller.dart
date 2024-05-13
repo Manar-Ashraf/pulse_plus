@@ -1,5 +1,3 @@
-// signup_controller.dart
-
 import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
