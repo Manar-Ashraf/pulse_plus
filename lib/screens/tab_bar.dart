@@ -96,7 +96,7 @@ class _TabBarrState extends State<TabBarr> with SingleTickerProviderStateMixin {
                       text: 'Profile',
                     ),
                     Tab(
-                      icon: Image.asset("assets/doctor.png", height: 22),
+                      icon: Image.asset("assets/doctor.png", height: 24),
                       text: 'Report ',
                     ),
                     Tab(
