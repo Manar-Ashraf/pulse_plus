@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:pulse_plus/controllers/user_controller.dart';
@@ -81,8 +81,11 @@ class _DoctorState extends State<Doctor> {
               ),
               width: 300,
               height: 50,
-              child: Text(userController.getUserData!.data!.doctorName!,
-                  style: TextStyle(color: Color(0xFF7E1D19), fontSize: 16)),
+              child:
+              Obx(()=> userController.isLoading.isFalse?
+                 Text(userController.getUserData!.data!.doctorName!,
+                    style: TextStyle(color: Color(0xFF7E1D19), fontSize: 16)):SizedBox.shrink(),
+              )
             ),
             const SizedBox(height: 30),
             Container(
@@ -93,8 +96,11 @@ class _DoctorState extends State<Doctor> {
               ),
               width: 300,
               height: 50,
-              child: Text(userController.getUserData!.data!.doctorPhone!,
-                  style: TextStyle(color: Color(0xFF7E1D19), fontSize: 16)),
+              child:
+              Obx(()=>userController.isLoading.isFalse?
+                Text(userController.getUserData!.data!.doctorPhone!,
+                    style: TextStyle(color: Color(0xFF7E1D19), fontSize: 16)):SizedBox.shrink(),
+              )
             ),
             const SizedBox(height: 80),
             Row(

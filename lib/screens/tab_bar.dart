@@ -4,16 +4,19 @@ import 'package:get/get.dart';
 import 'package:pulse_plus/screens/doctor_info.dart';
 import 'package:pulse_plus/screens/user_profile.dart';
 import 'package:pulse_plus/screens/sign_in_screen.dart';
+import '../controllers/user_controller.dart';
 import 'home_screen.dart';
 
 class TabBarr extends StatefulWidget {
-  const TabBarr({Key? key}) : super(key: key);
+  // UserController userController = Get.put(UserController());
+  TabBarr({Key? key}) : super(key: key);
 
   @override
   _TabBarrState createState() => _TabBarrState();
 }
 
 class _TabBarrState extends State<TabBarr> with SingleTickerProviderStateMixin {
+  // UserController userController = Get.put(UserController());
   late TabController _tabController;
   bool _isLoggedIn = false;
 
@@ -21,6 +24,7 @@ class _TabBarrState extends State<TabBarr> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _tabController = TabController(length: 4, vsync: this);
+    // userController.fetchUserData();
     _checkLoggedIn();
   }
 
@@ -54,7 +58,7 @@ class _TabBarrState extends State<TabBarr> with SingleTickerProviderStateMixin {
                     child: TabBarView(
                       controller: _tabController,
                       children: [
-                         HomeScreen(),
+                        HomeScreen(),
                         Profile(),
                         Doctor(),
                         SignInScreen(),

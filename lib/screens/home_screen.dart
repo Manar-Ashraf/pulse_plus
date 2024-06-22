@@ -28,7 +28,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   TokenController tokenController = Get.put(TokenController());
-  UserController userController = Get.put(UserController());
+  // UserController userController = Get.put(UserController());
 
 
   Widget _buildBarChart() {
@@ -104,6 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     UserController userController =Get.put(UserController());
+    // userController.fetchUserData();
     return Scaffold(
 
       floatingActionButton: FloatingActionButton(
@@ -150,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const SizedBox(height: 70),
-            const SemicircularIndicator(
+             SemicircularIndicator(
               radius: 80,
               progress: 0.696,
               color: Color(0xFF7E1D19),
@@ -160,43 +161,17 @@ class _HomeScreenState extends State<HomeScreen> {
               contain: true,
               child: Column(
                 children: [
-                  Text(
-                    "{userController.getUserData!.data!.predicted[0]!.heartRate!}",
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF7E1D19)),
+                  Obx( ()=> userController.isLoading.isFalse?
+                    Text(
+                      "${userController.getUserData!.data!.predicted!.first.heartRate!.toPrecision(2)}",
+                      style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF7E1D19)),
+                    ):const SizedBox.shrink(),
                   ),
                   Text(
                     'Predicted BPM',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF7E1D19)),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 70),
-            const SemicircularIndicator(
-              radius: 80,
-              progress: 0.978,
-              color: Color(0xFF7E1D19),
-              backgroundColor: Color(0xFFF5A29C),
-              strokeWidth: 8,
-              bottomPadding: 0,
-              contain: true,
-              child: Column(
-                children: [
-                  Text(
-                    '97.8',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF7E1D19)),
-                  ),
-                  Text(
-                    'Oxygen Level',
                     style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,

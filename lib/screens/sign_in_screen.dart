@@ -19,7 +19,7 @@ class SignInScreen extends StatelessWidget {
     if (FirebaseAuth.instance.currentUser != null) {
       // Navigate to the TabBar screen if the user is already signed in
       WidgetsBinding.instance!.addPostFrameCallback((_) {
-        Get.off(() => const TabBarr());
+        Get.off(() =>  TabBarr());
       });
     }
 
@@ -98,7 +98,7 @@ class SignInScreen extends StatelessWidget {
                                 .signInWithEmailPassword(email, password);
                             if (success) {
                               if (_signInController.currentUser != null) {
-                                Get.off(() => const TabBarr());
+                                Get.off(() =>  TabBarr());
                               } else {
                                 // Show a snackbar if user is null
                                 ScaffoldMessenger.of(context).showSnackBar(
@@ -119,7 +119,7 @@ class SignInScreen extends StatelessWidget {
                             }
                           }
                           if (_formKey.currentState!.validate()) {
-                            Get.off(() => const TabBarr());
+                            Get.off(() =>  TabBarr());
                           }
                         },
                         child: const Text("Continue"),
