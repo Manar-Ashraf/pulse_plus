@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
+
+import '../controllers/user_controller.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -18,58 +21,59 @@ class _ProfileState extends State<Profile> {
   @override
   void initState() {
     super.initState();
-    fetchUserData();
+    // fetchUserData();
   }
 
-  void fetchUserData() async {
-    User? user = FirebaseAuth.instance.currentUser;
-
-    if (user != null) {
-      try {
-        QuerySnapshot<Map<String, dynamic>> querySnapshot =
-            await FirebaseFirestore.instance
-                .collection('users')
-                .where('authId', isEqualTo: user.uid)
-                .get();
-
-        if (querySnapshot.docs.isNotEmpty) {
-          // Assuming there's only one document matching the user's UID
-          DocumentSnapshot<Map<String, dynamic>> snapshot =
-              querySnapshot.docs.first;
-
-          // Access data from the snapshot
-          String name = snapshot.data()?['name'] ?? '';
-          String email = snapshot.data()?['email'] ?? '';
-          String age = snapshot.data()?['age'] ?? '';
-          String gender = snapshot.data()?['gender'] ?? '';
-          String phone = snapshot.data()?['phone'] ?? '';
-          String medication = snapshot.data()?['medication'] ?? '';
-
-          // Update the UI or do further processing with the fetched data
-          setState(() {
-            this.name = name;
-            this.email = email;
-            this.age = age;
-            this.gender = gender;
-            this.phone = phone;
-            this.medication = medication;
-          });
-        } else {
-          print('User document not found');
-          // Handle the case where the user document is not found
-        }
-      } catch (e) {
-        print('Error fetching user data: $e');
-        // Handle the error, such as displaying a message to the user
-      }
-    } else {
-      print('No user is signed in');
-      // Handle the case where no user is signed in
-    }
-  }
+  // void fetchUserData() async {
+  //   User? user = FirebaseAuth.instance.currentUser;
+  //
+  //   if (user != null) {
+  //     try {
+  //       QuerySnapshot<Map<String, dynamic>> querySnapshot =
+  //           await FirebaseFirestore.instance
+  //               .collection('users')
+  //               .where('authId', isEqualTo: user.uid)
+  //               .get();
+  //
+  //       if (querySnapshot.docs.isNotEmpty) {
+  //         // Assuming there's only one document matching the user's UID
+  //         DocumentSnapshot<Map<String, dynamic>> snapshot =
+  //             querySnapshot.docs.first;
+  //
+  //         // Access data from the snapshot
+  //         String name = snapshot.data()?['name'] ?? '';
+  //         String email = snapshot.data()?['email'] ?? '';
+  //         String age = snapshot.data()?['age'] ?? '';
+  //         String gender = snapshot.data()?['gender'] ?? '';
+  //         String phone = snapshot.data()?['phone'] ?? '';
+  //         String medication = snapshot.data()?['medication'] ?? '';
+  //
+  //         // Update the UI or do further processing with the fetched data
+  //         setState(() {
+  //           this.name = name;
+  //           this.email = email;
+  //           this.age = age;
+  //           this.gender = gender;
+  //           this.phone = phone;
+  //           this.medication = medication;
+  //         });
+  //       } else {
+  //         print('User document not found');
+  //         // Handle the case where the user document is not found
+  //       }
+  //     } catch (e) {
+  //       print('Error fetching user data: $e');
+  //       // Handle the error, such as displaying a message to the user
+  //     }
+  //   } else {
+  //     print('No user is signed in');
+  //     // Handle the case where no user is signed in
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
+    UserController userController = Get.put(UserController());
     return Scaffold(
       backgroundColor: const Color(0xFFFFE5E7),
       body: SingleChildScrollView(
@@ -86,7 +90,7 @@ class _ProfileState extends State<Profile> {
             const SizedBox(height: 10),
             Column(
               children: [
-                Text(name,
+                Text(userController.getUserData!.data!.name!,
                     style: const TextStyle(
                         color: Color(0xFF7E1D19),
                         fontSize: 20,
@@ -100,7 +104,7 @@ class _ProfileState extends State<Profile> {
                   ),
                   width: 300,
                   height: 50,
-                  child: Text(email,
+                  child: Text(userController.getUserData!.data!.email!,
                       style: const TextStyle(
                           color: Color(0xFF7E1D19), fontSize: 16)),
                 ),
@@ -113,7 +117,7 @@ class _ProfileState extends State<Profile> {
                   ),
                   width: 300,
                   height: 50,
-                  child: Text(age,
+                  child: Text(userController.getUserData!.data!.age!,
                       style: TextStyle(color: Color(0xFF7E1D19), fontSize: 16)),
                 ),
                 const SizedBox(height: 20),
@@ -125,7 +129,7 @@ class _ProfileState extends State<Profile> {
                   ),
                   width: 300,
                   height: 50,
-                  child: Text(phone,
+                  child: Text(userController.getUserData!.data!.phone!,
                       style: const TextStyle(
                           color: Color(0xFF7E1D19), fontSize: 16)),
                 ),
@@ -138,7 +142,7 @@ class _ProfileState extends State<Profile> {
                   ),
                   width: 300,
                   height: 50,
-                  child: Text(gender,
+                  child: Text(userController.getUserData!.data!.gender!,
                       style: TextStyle(color: Color(0xFF7E1D19), fontSize: 16)),
                 ),
                 const SizedBox(height: 20),
@@ -150,7 +154,7 @@ class _ProfileState extends State<Profile> {
                   ),
                   width: 300,
                   height: 50,
-                  child: Text(medication,
+                  child: Text(userController.getUserData!.data!.medication!,
                       style: const TextStyle(
                           color: Color(0xFF7E1D19), fontSize: 16),
                       textAlign: TextAlign.center),

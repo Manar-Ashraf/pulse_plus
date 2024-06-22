@@ -54,7 +54,7 @@ class _TabBarrState extends State<TabBarr> with SingleTickerProviderStateMixin {
                     child: TabBarView(
                       controller: _tabController,
                       children: [
-                        const HomeScreen(),
+                         HomeScreen(),
                         Profile(),
                         Doctor(),
                         SignInScreen(),

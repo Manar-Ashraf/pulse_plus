@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pulse_plus/controllers/token_controller.dart';
+import 'package:pulse_plus/controllers/user_controller.dart';
 import 'package:semicircle_indicator/semicircle_indicator.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -17,7 +18,9 @@ class BarChart {
 }
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+   HomeScreen({super.key});
+   TokenController tokenController = Get.put(TokenController());
+   UserController userController = Get.put(UserController());
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -25,6 +28,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   TokenController tokenController = Get.put(TokenController());
+  UserController userController = Get.put(UserController());
+
 
   Widget _buildBarChart() {
     List<charts.Series<BarChart, String>> series = [
@@ -98,7 +103,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    UserController userController =Get.put(UserController());
     return Scaffold(
+
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          // tokenController.getToken().then((value) => tokenController.getTok());
+          userController.fetchUserData();
+        } ,
+      ),
+
       backgroundColor: const Color(0xFFFFE5E7),
       body: SingleChildScrollView(
         child: Column(
@@ -147,7 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 children: [
                   Text(
-                    '69.6',
+                    "{userController.getUserData!.data!.predicted[0]!.heartRate!}",
                     style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
