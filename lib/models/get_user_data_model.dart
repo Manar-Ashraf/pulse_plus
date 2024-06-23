@@ -8,17 +8,17 @@ class GetUserData {
   GetUserData.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     status = json['status'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['message'] = this.message;
-    data['status'] = this.status;
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
+    final Map<String, dynamic> jsonData = {};
+    jsonData['message'] = message;
+    jsonData['status'] = status;
+    if (data != null) {
+      jsonData['data'] = data!.toJson();
     }
-    return data;
+    return jsonData;
   }
 }
 
@@ -32,19 +32,25 @@ class Data {
   String? name;
   String? age;
   String? medication;
-  List<Predicted>? predicted;
+  String? id;
 
-  Data(
-      {this.doctorName,
-        this.email,
-        this.doctorPhone,
-        this.authId,
-        this.gender,
-        this.phone,
-        this.name,
-        this.age,
-        this.medication,
-        this.predicted});
+  List<Predicted>? predicted;
+  List<Filterd>? filterd;
+
+  Data({
+    this.doctorName,
+    this.email,
+    this.doctorPhone,
+    this.authId,
+    this.gender,
+    this.phone,
+    this.name,
+    this.age,
+    this.medication,
+    this.id,
+    this.predicted,
+    this.filterd,
+  });
 
   Data.fromJson(Map<String, dynamic> json) {
     doctorName = json['doctorName'];
@@ -56,47 +62,71 @@ class Data {
     name = json['name'];
     age = json['age'];
     medication = json['medication'];
+    id = json['id'];
     if (json['predicted'] != null) {
-      predicted = <Predicted>[];
-      json['predicted'].forEach((v) {
-        predicted!.add(new Predicted.fromJson(v));
-      });
+      predicted = (json['predicted'] as List).map((v) => Predicted.fromJson(v)).toList();
+    }
+    if (json['filterd'] != null) {
+      filterd = (json['filterd'] as List).map((v) => Filterd.fromJson(v)).toList();
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['doctorName'] = this.doctorName;
-    data['email'] = this.email;
-    data['doctorPhone'] = this.doctorPhone;
-    data['authId'] = this.authId;
-    data['gender'] = this.gender;
-    data['phone'] = this.phone;
-    data['name'] = this.name;
-    data['age'] = this.age;
-    data['medication'] = this.medication;
-    if (this.predicted != null) {
-      data['predicted'] = this.predicted!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> jsonData = {};
+    jsonData['doctorName'] = doctorName;
+    jsonData['email'] = email;
+    jsonData['doctorPhone'] = doctorPhone;
+    jsonData['authId'] = authId;
+    jsonData['gender'] = gender;
+    jsonData['phone'] = phone;
+    jsonData['name'] = name;
+    jsonData['age'] = age;
+    jsonData['medication'] = medication;
+    jsonData['id'] = id;
+    if (predicted != null) {
+      jsonData['predicted'] = predicted!.map((v) => v.toJson()).toList();
     }
-    return data;
+    if (filterd != null) {
+      jsonData['filterd'] = filterd!.map((v) => v.toJson()).toList();
+    }
+    return jsonData;
   }
 }
 
 class Predicted {
-  double? heartRate;
   String? createdAt;
+  double? heartRate;
 
-  Predicted({this.heartRate, this.createdAt});
+  Predicted({this.createdAt, this.heartRate});
 
   Predicted.fromJson(Map<String, dynamic> json) {
-    heartRate = json['heart_rate'];
     createdAt = json['created_at'];
+    heartRate = json['heart_rate'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['heart_rate'] = this.heartRate;
-    data['created_at'] = this.createdAt;
-    return data;
+    final Map<String, dynamic> jsonData = {};
+    jsonData['created_at'] = createdAt;
+    jsonData['heart_rate'] = heartRate;
+    return jsonData;
+  }
+}
+
+class Filterd {
+  String? createdAt;
+  double? heartRate;
+
+  Filterd({this.createdAt, this.heartRate});
+
+  Filterd.fromJson(Map<String, dynamic> json) {
+    createdAt = json['created_at'];
+    heartRate = json['heart_rate'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> jsonData = {};
+    jsonData['created_at'] = createdAt;
+    jsonData['heart_rate'] = heartRate;
+    return jsonData;
   }
 }
